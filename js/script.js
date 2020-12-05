@@ -1,9 +1,16 @@
-const startingMinutes = 25;
-let time = startingMinutes * 60;
-
+let time = 0;
 const countdownEl = document.getElementById('timer');
 
-setInterval(updateCountdown, 1000);
+function startTimer(t){
+    if(timer!=null){
+        clearInterval(timer);
+    }
+
+    var startingMinutes = t;
+    time = startingMinutes * 60;
+
+    timer = setInterval(updateCountdown, 1000);
+}
 
 function updateCountdown(){
     const minutes = Math.floor(time / 60);
@@ -13,4 +20,9 @@ function updateCountdown(){
 
     countdownEl.innerHTML = `${minutes}:${seconds}`;
     time--;
+
+    if(minutes == 0 && seconds == 0){
+        clearInterval(timer);
+        document.getElementById('toque').play();
+    }
 }
